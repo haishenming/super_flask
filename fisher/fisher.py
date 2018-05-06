@@ -1,14 +1,29 @@
-from flask import Flask
+import json
+
+from flask import Flask, make_response
+
+from libs.comm_func import is_isbn_or_key
+from libs.yunshu_book import YunShuBook
 
 app = Flask(__name__)
+app.config.from_object('config')
 
-@app.route("/hello")
-def hello():
-    return "hello, Leo"
+@app.route("/book/search/<q>/<page>")
+def search(q, page):
+    """
+        q：关键字或isbn
+        page：页码
+    """
+    # 判断用户上传来的是isbn还是关键字
+    isbn_or_key = is_isbn_or_key(q)
+    if isbn_or_key == "isbn":
+        result = YunShuBook.search_by_isbn(q)
+    else:
+        result = YunShuBook.search_by_keyword(q)
 
-# 两种路由注册方式
-app.add_url_rule('/hello', view_func=hello)
+    return json.dumps(result), 200, {'content-type':'application/json'}
 
 
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=app.config["DEBUG"], host='0.0.0.0', port=8888)
 
