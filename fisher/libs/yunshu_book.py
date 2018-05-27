@@ -2,6 +2,8 @@
 
 from .httper import HTTP
 
+from flask import current_app
+
 
 class YunShuBook:
     per_page = 15  # 每页数量
@@ -21,7 +23,12 @@ class YunShuBook:
 
     @classmethod
     def search_by_keyword(cls, keyword, page=1):
-        url = cls.keyword_url.format(keyword, cls.per_page, (page - 1) * cls.per_page)
+        url = cls.keyword_url.format(keyword, current_app.config["PER_PAGE"],
+                                     cls.calculate_start(page))
         result = HTTP.get(url)
 
         return result
+
+    @staticmethod
+    def calculate_start(page):
+        return (page - 1) * current_app.config["PER_PAGE"]

@@ -5,7 +5,8 @@ def create_app():
     """ 创建Flask app对象 """
 
     app = Flask(__name__)
-    app.config.from_object('config')
+    app.config.from_object('app.setting')
+    app.config.from_object('app.secure')
 
     register_blueprint(app)
 

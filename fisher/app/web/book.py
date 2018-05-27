@@ -20,14 +20,14 @@ def search():
     form = SearchForm(request.args)
 
     if form.validate():
-        q = form.q.data
-        page = form.page.data.strip()
+        q = form.q.data.strip()
+        page = form.page.data
 
         isbn_or_key = is_isbn_or_key(q)
         if isbn_or_key == "isbn":
             result = YunShuBook.search_by_isbn(q)
         else:
-            result = YunShuBook.search_by_keyword(q)
+            result = YunShuBook.search_by_keyword(q, page)
 
         return jsonify(result)
 
