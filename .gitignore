@@ -1,4 +1,7 @@
 # Created by .ignore support plugin (hsz.mobi)
+
+secure.py    ## 机密文件
+
 ### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -156,4 +159,7 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+
+## 机密文件
+secure.py
 
