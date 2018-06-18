@@ -1,11 +1,9 @@
-import json
-
 from flask import request, jsonify
 
-from libs.comm_func import is_isbn_or_key
-from libs.yunshu_book import YunShuBook
+from app.libs.comm_func import is_isbn_or_key
+from app.spider.yunshu_book import YunShuBook
 
-from app.forms import SearchForm
+from app.forms.book import SearchForm
 from . import web
 
 
