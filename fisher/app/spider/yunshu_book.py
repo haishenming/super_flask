@@ -13,11 +13,20 @@ class YunShuBook:
 
     def __init__(self, url):
         self.url = url
+        self.totle = 0
+        self.book = []
+
 
     @classmethod
     def search_by_isbn(cls, isbn):
         url = cls.isbn_url.format(isbn)
         result = HTTP.get(url)
+
+        # book = query_form_mysql(idbn)
+        # if book:
+        #     return book
+        # else:
+        #     save(book)
 
         return result
 
